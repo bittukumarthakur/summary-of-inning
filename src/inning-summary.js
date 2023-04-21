@@ -20,9 +20,9 @@ const extraRuns = function(summary) {
   return summary.WD + summary.NB;
 };
 
-const isNumber = function(number) {
-  const numbers = [1, 2, 3, 4, 5, 6];
-  return numbers.includes(number);
+const isNotExtraRun = function(run) {
+  const extraRun = ["WD", "NB", "W"];
+  return !extraRun.includes(run);
 };
 
 const toNumber = function(stringNumber) {
@@ -33,7 +33,7 @@ const calculateRun = function(summary) {
   let total = 0;
 
   for(const run of Object.keys(summary)) {
-    if(isNumber(+run)) {
+    if(isNotExtraRun(run)) {
       total += toNumber(run) * summary[run];
     }
   }
@@ -55,4 +55,5 @@ const inningSummary = function(scores) {
   summary.TotalRuns = calculateRun(scoreBoard) +  extraRun;
   return summary;
 };
+
 exports.inningSummary = inningSummary;

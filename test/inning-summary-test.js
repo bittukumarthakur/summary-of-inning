@@ -4,6 +4,7 @@ const displayTitle = test.displayTitle;
 const displaySummary = test.displaySummary;
 const inningSummary = cricket.inningSummary; 
 const assert = test.assert;
+const assertObject = test.assertObject;
 
 const inningSummaryTest = function() {
   displayTitle("inningSummary()");
@@ -13,17 +14,18 @@ const inningSummaryTest = function() {
     [ 'NB', 1, 2, 3, 4, 6 ]
   ];
 
-  const summary = inningSummary(data);
-  const four = summary.Four === 2;
-  const sixes = summary.Sixes === 2;
-  const wicket = summary.Wicket === 1;
-  const wideBall = summary.WideBall === 1;
-  const noBall = summary.NoBall === 1;
-  const extraRuns = summary.ExtraRuns === 2;
-  const totalRuns = summary.TotalRuns === 37;
-  const result = four && sixes && wicket && wideBall && noBall && extraRuns && noBall && extraRuns && totalRuns;
-  assert(result, true, "score should be matched.")
+  const expected = {
+    Four: 2,
+    Sixes: 2,
+    Wicket: 1,
+    WideBall: 1,
+    NoBall: 1,
+    ExtraRuns: 2,
+    TotalRuns: 37
+  };
+  const actual = inningSummary(data);
 
+  assertObject(expected, actual, "score should be same as expected.")
 };
 
 inningSummaryTest();
