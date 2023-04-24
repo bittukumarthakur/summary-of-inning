@@ -15,13 +15,13 @@ const inningSummaryTest = function() {
   ];
 
   const expected = {
-    Four: 2,
-    Sixes: 2,
-    Wicket: 1,
-    WideBall: 1,
-    NoBall: 1,
-    ExtraRuns: 2,
-    TotalRuns: 37
+    four: 2,
+    sixes: 2,
+    wicket: 1,
+    wideball: 1,
+    noball: 1,
+    extraRuns: 2,
+    totalRuns: 37
   };
   const actual = inningSummary(data);
 

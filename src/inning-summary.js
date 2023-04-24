@@ -29,7 +29,7 @@ const toNumber = function(stringNumber) {
   return +stringNumber;
 }
 
-const calculateRun = function(summary) {
+const calculateRuns = function(summary) {
   let total = 0;
 
   for(const run of Object.keys(summary)) {
@@ -41,18 +41,34 @@ const calculateRun = function(summary) {
   return total;
 };
 
+const summaryFormat = function(run) {
+  const format = {
+    1: {name: "one", run: 1, ball: 1},
+    2: {name: "two", run: 2, ball: 1},
+    4: {name: "four", run: 4, ball: 1},
+    6: {name: "sixes", run: 6, ball: 1},
+    W: {name: "wicket", run: 0, ball: 1},
+    WD: {name: "wideball", run: 1, ball:0},
+    NB: {name: "noball", run: 1, ball: 0},
+  };
+  const newFormat = {};
+  newFormat[format[run].name] = {run: format[run].run, ball: format[run].ball};
+  return newFormat;
+};
+
 const inningSummary = function(scores) {
   const scoreBoard = frequencyTable(scores);
   const extraRun = extraRuns(scoreBoard);
+  const summary = {
+    four: scoreBoard[4],
+    sixes: scoreBoard[6],
+    wicket: scoreBoard.W,
+    wideball: scoreBoard.WD,
+    noball: scoreBoard.NB,
+    extraRuns: extraRun,
+    totalRuns: calculateRuns(scoreBoard) +  extraRun
+  };
 
-  const summary = {};
-  summary.Four = scoreBoard[4];
-  summary.Sixes = scoreBoard[6];
-  summary.Wicket = scoreBoard.W;
-  summary.WideBall = scoreBoard.WD;
-  summary.NoBall = scoreBoard.NB;
-  summary.ExtraRuns = extraRun;
-  summary.TotalRuns = calculateRun(scoreBoard) +  extraRun;
   return summary;
 };
 
